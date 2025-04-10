@@ -130,7 +130,7 @@ export default function Home() {
           ctx.font = '13px Arial';
           ctx.textAlign = 'center';
           ctx.fillText(
-            `Photobooth ${dateString}`,
+            `Naurriee Photobooth ${dateString}`,
             stripCanvas.width / 2,
             frameHeight + 20
           );
