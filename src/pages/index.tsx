@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import Head from 'next/head';
 // import Image from
-const words = 'Whatyuu PhotoBooth 👋🏻';
+const words = 'Naurriee Private PhotoBooth 👋🏻';
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -53,6 +53,12 @@ export default function Home() {
       if (context) {
         canvasRef.current.width = videoRef.current.videoWidth;
         canvasRef.current.height = videoRef.current.videoHeight;
+
+        // Membalikkan gambar horizontal (anti-mirror)
+        context.save();
+        context.scale(-1, 1); // Membalikkan secara horizontal
+        context.translate(-canvasRef.current.width, 0); // Menyesuaikan posisi
+
         context.drawImage(
           videoRef.current,
           0,
@@ -60,6 +66,8 @@ export default function Home() {
           canvasRef.current.width,
           canvasRef.current.height
         );
+        context.restore(); // Mengembalikan transformasi ke default
+
         const imageData = canvasRef.current.toDataURL('image/png');
 
         setPhotos((prevPhotos) => {
@@ -140,7 +148,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Private PhotoBooth</title>
+        <title>Naurriee Private PhotoBooth</title>
         <meta
           name='description'
           content='Aplikasi PhotoBooth pribadi dengan efek keren!'
@@ -160,6 +168,7 @@ export default function Home() {
                   autoPlay
                   playsInline
                   className='w-full h-full object-cover rounded-xl'
+                  style={{ transform: 'scaleX(-1)' }}
                 />
               )}
             </div>
